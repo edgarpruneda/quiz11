@@ -1,0 +1,54 @@
+//this program reads and use numbers written in a text document in order to calculate the number of lines, the sum, average and also the standard deviation.
+I used atoi to convert strings into integers 
+
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <cstdlib>
+#include <string>
+#include <vector>
+#include <cmath>
+using namespace std;
+
+int ReadNumbersFromFiles (string filename){
+
+  int number_of_lines = 0;
+  int sum = 0;
+  int x;
+  float stdeb;
+  int mean; 
+  float sdev;
+  float var;
+  vector <int> numbers;
+  ifstream myFile;
+  myFile.open(filename.c_str());
+  string line;
+  int numLines = 0;
+
+while ( getline(myFile, line) ){
+  ++numLines;
+  x = atoi(line.c_str());
+  sum = sum + x;
+  numbers.push_back(x);
+}
+      mean= sum/ numLines;
+      for(int i = 1; i <= numLines; i++){
+              stdeb = (x - mean)*(x - mean);
+              sdev = sdev + stdeb;
+          }
+      var = sdev / (numLines - 1);
+      stdeb= sqrt(var);
+      cout << "El numero de lineas del archivo es: " << numLines<<endl;
+      myFile.close();
+      cout<<"La suma de los numeros es: "<< sum<<endl;
+      cout<<"El promedio de los numeros es: "<<mean<<endl;
+      cout<<"La desviación estandar es: "<<stdeb;
+    }
+
+int main(){
+  string file;
+
+  ReadNumbersFromFiles("numbers.txt");
+
+  return 0;
+}
